@@ -1,0 +1,24 @@
+{
+  "name": "lowest-price-api",
+  "version": "1.0.0",
+  "description": "backend project for lowest price api",
+  "main": "app.js",
+  "author": "Yasin Beyazlı <yasinbeyazli29@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon v1/src/app.js"
+  },
+  "dependencies": {
+    "crypto-js": "^4.1.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "http-status": "^1.5.0",
+    "joi": "^17.4.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.14"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
