@@ -26,15 +26,25 @@ const generateRefreshToken = (user) => {
   );
 };
 
-cloudinary.config({
-  cloud_name: "hrms-camp",
-  api_key: "454874475139721",
-  api_secret: "a7umHa7065SWVqgHxe7I1qRUQHI",
-});
+const imageUploader = async (path, folder, id) => {
+  try {
+    return await cloudinary.uploader.upload(path, {
+      folder: folder,
+      public_id: id,
+      width: 500,
+      height: 500,
+      crop: "fill",
+      overwrite: true,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 module.exports = {
   passwordToHash,
   generateAccessToken,
   generateRefreshToken,
   cloudinary,
+  imageUploader,
 };

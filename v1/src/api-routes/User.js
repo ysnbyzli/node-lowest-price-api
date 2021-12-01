@@ -1,6 +1,12 @@
 const express = require("express");
 
-const { index, create, login, update } = require("../controller/User");
+const {
+  index,
+  create,
+  login,
+  update,
+  getUserProductList,
+} = require("../controller/User");
 const validate = require("../middlewares/validate");
 const authenticate = require("../middlewares/authenticate");
 const uploads = require("../middlewares/image");
@@ -19,5 +25,5 @@ router
     uploads.single("profile"),
     update
   );
-
+router.route("/products").get(authenticate, getUserProductList);
 module.exports = router;

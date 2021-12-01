@@ -6,11 +6,12 @@ const {
   insert,
   modify,
 } = require("../services/User");
+const ProductService = require("../services/Product");
 const {
   passwordToHash,
   generateAccessToken,
   generateRefreshToken,
-  cloudinary,
+  imageUploader,
 } = require("../scripts/utils/helper");
 
 const index = (req, res) => {
@@ -67,23 +68,22 @@ const login = (req, res) => {
 };
 
 const update = async (req, res) => {
-  try {
-    if (req.file?.path) {
-      const imageResult = await cloudinary.uploader.upload(req.file.path, {
-        folder: "profiles",
-        public_id: `${req.user._id}_profile`,
-        width: 500,
-        height: 500,
-        crop: "fill",
-        overwrite: true,
-      });
-      req.body.profile_image = imageResult.url;
-    }
-  } catch (error) {
-    console.log(error);
+  let imageUrl;
+  if (req.file?.path) {
+    const result = await imageUploader(
+      req.file.path,
+      "profiles",
+      `${req.user._id}_profile`
+    );
+    imageUrl = result.url;
   }
 
-  modify({ _id: req.user._id }, req.body)
+  const data = {
+    profile_image: imageUrl,
+    ...req.body,
+  };
+
+  modify({ _id: req.user._id }, data)
     .then((user) => {
       if (!user)
         return res
@@ -98,9 +98,22 @@ const update = async (req, res) => {
     );
 };
 
+const getUserProductList = (req, res) => {
+  return ProductService.list({ user_id: req.user._id })
+    .then((response) => {
+      res.status(httpStatus.OK).json(response);
+    })
+    .catch(() =>
+      res
+        .status(httpStatus.INTERNAL_SERVER_ERROR)
+        .json({ message: "Ürünler listelenirken bir hata oluştu!" })
+    );
+};
+
 module.exports = {
   index,
   create,
   login,
   update,
+  getUserProductList,
 };
