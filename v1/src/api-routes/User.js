@@ -6,6 +6,7 @@ const {
   login,
   update,
   getUserProductList,
+  getUserRecordList,
 } = require("../controller/User");
 const validate = require("../middlewares/validate");
 const authenticate = require("../middlewares/authenticate");
@@ -26,4 +27,6 @@ router
     update
   );
 router.route("/products").get(authenticate, getUserProductList);
+router.route("/records").get(authenticate, getUserRecordList);
+
 module.exports = router;

@@ -7,6 +7,7 @@ const {
   modify,
 } = require("../services/User");
 const ProductService = require("../services/Product");
+const RecordService = require("../services/Record");
 const {
   passwordToHash,
   generateAccessToken,
@@ -110,10 +111,25 @@ const getUserProductList = (req, res) => {
     );
 };
 
+const getUserRecordList = (req, res) => {
+  RecordService.list({ user_id: req.user._id })
+    .then((response) => {
+      return res.status(httpStatus.OK).json(response);
+    })
+    .catch(() => {
+      res
+        .status(httpStatus.INTERNAL_SERVER_ERROR)
+        .send({
+          message: "Kayıtlar listenelirken bilinmeyen bir hata oluştu!",
+        });
+    });
+};
+
 module.exports = {
   index,
   create,
   login,
   update,
   getUserProductList,
+  getUserRecordList,
 };

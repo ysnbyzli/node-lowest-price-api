@@ -16,6 +16,10 @@ https://documenter.getpostman.com/view/18301539/UVJeEw1i
 [![Postman Badge](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white)](https://www.postman.com/)
 [![Docker Badge](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 
+## Database Diagram
+
+![database-diagram](database-diagram.png)
+
 ## Ortam Değişkenleri
 
 Bu projeyi çalıştırmak için aşağıdaki ortam değişkenlerini .env dosyanıza eklemeniz gerekecek

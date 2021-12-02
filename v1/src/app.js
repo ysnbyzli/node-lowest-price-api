@@ -3,7 +3,7 @@ const helmet = require("helmet");
 
 const config = require("./config");
 const loaders = require("./loaders");
-const { UserRoutes, ProductRoutes } = require("./api-routes");
+const { UserRoutes, ProductRoutes, RecordRoutes } = require("./api-routes");
 
 config();
 loaders();
@@ -17,4 +17,5 @@ app.listen(process.env.APP_PORT, () => {
   console.log("Sunucu ayağa kalktı 🚀🚀");
   app.use("/users", UserRoutes);
   app.use("/products", ProductRoutes);
+  app.use("/records", RecordRoutes);
 });
