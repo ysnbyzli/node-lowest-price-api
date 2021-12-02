@@ -18,7 +18,7 @@ https://documenter.getpostman.com/view/18301539/UVJeEw1i
 
 ## Database Diagram
 
-![database-diagram](database-diagram.png)
+![database-diagram](database-diagram.PNG)
 
 ## Ortam Değişkenleri
 
