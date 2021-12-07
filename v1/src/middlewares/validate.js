@@ -8,7 +8,7 @@ const validate = (schema) => (req, res, next) => {
       ?.map((detail) => detail.message)
       .join(", ");
     // ["", "", "", ""] => "aaa", "bbb", "ccc"
-    res.status(httpStatus.BAD_REQUEST).json({ error: errorMessage });
+    res.status(httpStatus.BAD_REQUEST).json({ message: errorMessage });
     return;
   }
   Object.assign(req, value);

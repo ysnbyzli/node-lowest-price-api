@@ -1,7 +1,7 @@
 const Product = require("../models/Product");
 
 const list = (where = {}) => {
-  return Product.find(where).populate({
+  return Product.find(where).sort({ createdAt: -1 }).populate({
     path: "user_id",
     select: "username",
   });

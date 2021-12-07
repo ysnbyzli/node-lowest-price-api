@@ -7,16 +7,14 @@ const index = (req, res) => {
       return res.status(httpStatus.OK).json(response);
     })
     .catch(() => {
-      res
-        .status(httpStatus.INTERNAL_SERVER_ERROR)
-        .send({
-          message: "Kayıtlar listelenirken bilinmeyen bir hata oluştu!",
-        });
+      res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
+        message: "Kayıtlar listelenirken bilinmeyen bir hata oluştu!",
+      });
     });
 };
 
 const create = (req, res) => {
-  req.body.user_id = req.user._id;
+  req.body.user = req.user._id;
   insert(req.body)
     .then((response) => {
       return res.status(httpStatus.OK).json(response);

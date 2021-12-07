@@ -54,7 +54,7 @@ const login = (req, res) => {
     if (!user)
       return res
         .status(httpStatus.NOT_FOUND)
-        .json({ message: "Böyle bir kullanıcı bulunmamaktadır!" });
+        .json({ message: "Username or password is incorrect" });
 
     user = {
       ...user.toObject(),
@@ -117,11 +117,9 @@ const getUserRecordList = (req, res) => {
       return res.status(httpStatus.OK).json(response);
     })
     .catch(() => {
-      res
-        .status(httpStatus.INTERNAL_SERVER_ERROR)
-        .send({
-          message: "Kayıtlar listenelirken bilinmeyen bir hata oluştu!",
-        });
+      res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
+        message: "Kayıtlar listenelirken bilinmeyen bir hata oluştu!",
+      });
     });
 };
 

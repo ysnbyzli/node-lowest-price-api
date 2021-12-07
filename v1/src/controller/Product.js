@@ -8,6 +8,7 @@ const {
   deleteProduct,
   modify,
 } = require("../services/Product");
+const RecordService = require("../services/Record");
 const { imageUploader } = require("../scripts/utils/helper");
 
 const index = (req, res) => {
@@ -27,7 +28,7 @@ const create = async (req, res) => {
   if (product)
     return res
       .status(httpStatus.CONFLICT)
-      .json({ message: "Bu barkoda sahip ürün zaten mevcut!" });
+      .json({ message: "The product with this barcode already exists!" });
 
   let imageUrl;
   if (req.file?.path) {
@@ -94,9 +95,43 @@ const remove = async (req, res) => {
     );
 };
 
+const getProductRecordList = async (req, res) => {
+  RecordService.list({ product: req.params.id })
+    .then((response) => {
+      if (!response)
+        return res
+          .status(httpStatus.NOT_FOUND)
+          .send({ message: "Kayıt bulunamadı!" });
+      res.status(httpStatus.OK).json(response);
+    })
+    .catch(() =>
+      res
+        .status(httpStatus.INTERNAL_SERVER_ERROR)
+        .send({ message: "Ürün kayıtları çekilirken bir ata oluştu!" })
+    );
+};
+
+const getProductById = async (req, res) => {
+  getOneProductByFilter({ _id: req.params.id })
+    .then((response) => {
+      if (!response)
+        return res
+          .status(httpStatus.NOT_FOUND)
+          .send({ message: "Ürün bulunamadı!" });
+      res.status(httpStatus.OK).json(response);
+    })
+    .catch((e) =>
+      res
+        .status(httpStatus.INTERNAL_SERVER_ERROR)
+        .send({ message: "Ürün listelenirken bir hata oluştu!" })
+    );
+};
+
 module.exports = {
   index,
   create,
   update,
   remove,
+  getProductRecordList,
+  getProductById,
 };

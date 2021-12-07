@@ -2,12 +2,13 @@ const Record = require("../models/Record");
 
 const list = (where = {}) => {
   return Record.find(where)
+    .sort({ createdAt: -1 })
     .populate({
-      path: "user_id",
-      select: "username",
+      path: "user",
+      select: "username profile_image",
     })
     .populate({
-      path: "product_id",
+      path: "product",
       select: "title",
     });
 };
