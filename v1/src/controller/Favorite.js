@@ -34,8 +34,6 @@ const create = (req, res) => {
 const deleteFavorite = (req, res) => {
   const { id } = req.params;
   const user_id = req.user._id;
-  console.log("product ::> ", id);
-  console.log("user ::> ", user_id);
   getOneFavoriteItemByFilter({ product: id, user: user_id }).then(
     (deleteItem) => {
       if (!deleteItem)

@@ -20,8 +20,13 @@ const updateValidation = Joi.object({
   lastName: Joi.string().min(3),
 });
 
+const changePassword = Joi.object({
+  password: Joi.string().required().min(8),
+});
+
 module.exports = {
   createValidation,
   loginValidation,
   updateValidation,
+  changePassword,
 };
